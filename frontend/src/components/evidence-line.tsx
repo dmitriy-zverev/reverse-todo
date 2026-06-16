@@ -8,9 +8,10 @@ import { WashiCard } from "./washi-card";
 
 interface EvidenceLineProps {
   entry: Entry;
+  index?: number;
 }
 
-export function EvidenceLine({ entry }: EvidenceLineProps) {
+export function EvidenceLine({ entry, index = 0 }: EvidenceLineProps) {
   const mutations = useEntryMutations();
   const category = entry.tags[0]?.category;
   const accentColor = category ? categoryColor(category) : "var(--color-ink)";
@@ -21,8 +22,13 @@ export function EvidenceLine({ entry }: EvidenceLineProps) {
       padded={false}
       clip={false}
       accent={undefined}
-      className="evidence-card"
-      style={{ "--evidence-accent": accentColor } as CSSProperties}
+      className="evidence-card animate-ma-rise"
+      style={
+        {
+          "--evidence-accent": accentColor,
+          "--ma-stagger": index,
+        } as CSSProperties
+      }
     >
       <div className="evidence-card__body">
         <header className="evidence-card__head">

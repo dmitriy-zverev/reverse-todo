@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { TagCategory } from "../api/types";
 import { categoryColor } from "../lib/category-colors";
 import { categoryLabel } from "../lib/category-labels";
@@ -17,8 +18,8 @@ export function CategoryBars({ items }: CategoryBarsProps) {
         {items.map((item, index) => (
           <div
             key={item.category}
-            className="week-panel__body animate-fade-up border-t border-[var(--color-border)]"
-            style={{ animationDelay: `${index * 60}ms` }}
+            className="week-panel__body animate-ma-rise border-t border-[var(--color-border)]"
+            style={{ "--ma-stagger": index } as CSSProperties}
           >
             <div className="week-category-row">
               <span className="week-category-row__label">

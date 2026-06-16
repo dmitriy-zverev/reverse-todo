@@ -103,8 +103,8 @@ export function TodayPage() {
           День ещё пуст. Одна строка — уже прогресс.
         </WashiCard>
       )}
-      {data?.entries.map((entry) => (
-        <EvidenceLine key={entry.id} entry={entry} />
+      {data?.entries.map((entry, index) => (
+        <EvidenceLine key={entry.id} entry={entry} index={index} />
       ))}
     </SplitPageLayout>
   );

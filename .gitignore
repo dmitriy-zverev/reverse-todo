@@ -60,6 +60,8 @@ cover/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+backend/reverse_todo.db
+backend/reverse_todo.db-*
 
 # Flask stuff:
 instance/
@@ -216,3 +218,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+node_modules/
+frontend/dist/
+
+.lazyweb/

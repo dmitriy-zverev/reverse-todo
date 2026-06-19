@@ -22,6 +22,11 @@ class FakeUserRepository:
         self.by_email[user.email] = user.id
         return user
 
+    async def update_timezone(self, user_id: UUID, timezone: str) -> User:
+        user = self.users[user_id]
+        user.timezone = timezone
+        return user
+
 
 class FakeTagRepository:
     def __init__(self) -> None:

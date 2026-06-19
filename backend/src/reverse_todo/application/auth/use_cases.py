@@ -20,6 +20,7 @@ class RegisterUserCommand:
 class LoginUserCommand:
     email: str
     password: str
+    timezone: str | None = None
 
 
 class RegisterUserUseCase:
@@ -48,4 +49,6 @@ class LoginUserUseCase:
         user = await self._users.get_by_email(command.email.lower())
         if user is None or not verify_password(command.password, user.password_hash):
             raise InvalidCredentialsError("Invalid email or password")
+        if command.timezone and command.timezone != user.timezone:
+            user = await self._users.update_timezone(user.id, command.timezone)
         return create_access_token(user.id), user

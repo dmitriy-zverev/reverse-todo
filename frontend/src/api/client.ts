@@ -9,6 +9,10 @@ import type {
 
 const API = import.meta.env.VITE_API_URL ?? "/api";
 
+export function browserTimezone(): string {
+  return Intl.DateTimeFormat().resolvedOptions().timeZone;
+}
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${API}${path}`, {
     ...init,
@@ -30,12 +34,12 @@ export const api = {
   register: (email: string, password: string) =>
     request<User>("/auth/register", {
       method: "POST",
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password, timezone: browserTimezone() }),
     }),
   login: (email: string, password: string) =>
     request<User>("/auth/login", {
       method: "POST",
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password, timezone: browserTimezone() }),
     }),
   me: () => request<User>("/auth/me"),
   logout: () => request<void>("/auth/logout", { method: "POST" }),

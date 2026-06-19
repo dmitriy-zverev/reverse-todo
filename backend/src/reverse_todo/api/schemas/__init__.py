@@ -16,6 +16,7 @@ class RegisterRequest(BaseModel):
 class LoginRequest(BaseModel):
     email: EmailStr
     password: str
+    timezone: str | None = None
 
 
 class UserResponse(BaseModel):

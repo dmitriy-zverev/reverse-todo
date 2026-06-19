@@ -32,3 +32,12 @@ class SqlAlchemyUserRepository:
         self._session.add(model)
         await self._session.flush()
         return user_to_entity(model)
+
+    async def update_timezone(self, user_id: UUID, timezone: str) -> User:
+        model = await self._session.get(UserModel, user_id)
+        if model is None:
+            msg = f"User {user_id} not found"
+            raise ValueError(msg)
+        model.timezone = timezone
+        await self._session.flush()
+        return user_to_entity(model)

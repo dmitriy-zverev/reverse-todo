@@ -53,10 +53,15 @@ async def login(
 ) -> UserResponse:
     try:
         token, user = await use_cases.login_user.execute(
-            LoginUserCommand(email=body.email, password=body.password)
+            LoginUserCommand(
+                email=body.email,
+                password=body.password,
+                timezone=body.timezone,
+            )
         )
     except InvalidCredentialsError as exc:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(exc)) from exc
+    await session.commit()
     _set_session_cookie(response, settings, token)
     return UserResponse(id=user.id, email=user.email, timezone=user.timezone)
 

@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { EveningReminder } from "./components/evening-reminder";
 import { Layout } from "./components/layout";
 import { ArchivePage } from "./pages/archive";
 import { AuthPage } from "./pages/auth";
@@ -26,14 +27,17 @@ function AppRoutes() {
   }
 
   return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route index element={<TodayPage />} />
-        <Route path="week" element={<WeekPage />} />
-        <Route path="archive" element={<ArchivePage />} />
-      </Route>
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+    <>
+      <EveningReminder user={user} />
+      <Routes>
+        <Route element={<Layout />}>
+          <Route index element={<TodayPage />} />
+          <Route path="week" element={<WeekPage />} />
+          <Route path="archive" element={<ArchivePage />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </>
   );
 }
 

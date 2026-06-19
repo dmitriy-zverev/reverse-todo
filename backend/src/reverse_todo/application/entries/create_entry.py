@@ -11,7 +11,6 @@ from reverse_todo.domain.repositories import (
     SkillRepository,
     TagRepository,
 )
-from reverse_todo.domain.value_objects.category import TagCategory
 from reverse_todo.domain.value_objects.entry_date import EntryDate
 from reverse_todo.domain.value_objects.source import EntrySource
 
@@ -68,9 +67,11 @@ class CreateEntryUseCase:
         )
 
         linked_tags = []
-        category = suggestion.category or TagCategory.WORK
-        for name in suggestion.tag_names:
-            linked_tags.append(await self._tags.get_or_create(command.user_id, name, category))
+        if suggestion.category is not None:
+            for name in suggestion.tag_names:
+                linked_tags.append(
+                    await self._tags.get_or_create(command.user_id, name, suggestion.category)
+                )
         entry.tags = linked_tags
 
         if suggestion.project_name:
